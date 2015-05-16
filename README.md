@@ -44,8 +44,8 @@ Also, you can just take top used 'reverse translit' passwords and use it at a cu
 
 # Usage
 
-`git clone https://github.com/lctrcl/crwg`
-`pip install -r requirements.txt`
+    git clone https://github.com/lctrcl/crwg
+    pip install -r requirements.txt
 
 Download and clean up russian dictionaries:
 
