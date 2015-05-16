@@ -1,0 +1,2 @@
+progressbar == 2.3
+transliterate == 1.7.3
