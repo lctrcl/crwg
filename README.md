@@ -1,6 +1,6 @@
 
 **TL;DR**
-This is a generator of custom russian dictionaries, based on reverse translit, and basic password analyzer.
+This is a generator of custom Russian dictionaries, based on reverse translit, and basic password analyzer.
 
 You can download tool [here](https://github.com/lctrcl/crwg)
 
@@ -13,7 +13,7 @@ We have great tools to analyze these dumps, such as [pipal](https://digi.ninja/p
 
 # Russian 'reverse translit' principle 
 
-Many russian-speaking people use dictionary passwords, but based on 'reverse translit' (I don't know what really term is, just using this to refer to such principle). Basically when you have dual-layout keyboards such as following, you write russian words in english layout.
+Many Russian-speaking people use dictionary passwords, but based on 'reverse translit' (I don't know what really term is, just using this to refer to such principle). Basically when you have dual-layout keyboards such as following, you write Russian words in English layout.
 ![this](http://www.thebrainfever.com/images/kb/KB_0024_Russian.png)
 
 So if English-speaking people look on these passwords, they look like gibberish:
@@ -21,7 +21,7 @@ So if English-speaking people look on these passwords, they look like gibberish:
 - gfhjkm
 - etc.
 
-They are actually russian words written in 'reverse translit':
+They are actually Russian words written in 'reverse translit':
 - привет
 - пароль
 - и т.д.
@@ -29,16 +29,16 @@ They are actually russian words written in 'reverse translit':
 Current tools doesn't have ability to find this kind of passwords, so I wrote a little Python tool over a weekend to accomplish this.
 
 It's called "Custom Russian WordList Generator" and it does basically three things:
-- downloads and cleans up russian dictionary (based on ruscorpora and opencorpora)
+- downloads and cleans up Russian dictionary (based on ruscorpora and opencorpora)
 - generates custom dictionaries in 'reverse translit'
 - analyzes passwords leaks (not provided) and finds frequency of such passwords
 
-It can be easily extended with new layouts and have also clasical 'translit' mode.
+It can be easily extended with new layouts and have also classical 'translit' mode.
 In the future I might convert it to pipal module (if it's possible).
 
 # Where it's useful
 
-In pentest, it's always useful to generate custom wordlists. With a combination of [CeWl](https://digi.ninja/projects/cewl.php) and CRWG you can build up some nice wordlists if you working with russian-based companies and persons. 
+In pentest, it's always useful to generate custom wordlists. With a combination of [CeWl](https://digi.ninja/projects/cewl.php) and CRWG you can build up some nice wordlists if you working with Russian-based companies and persons. 
 
 Also, you can just take top used 'reverse translit' passwords and use it at a custom dictionary.
 
@@ -47,7 +47,7 @@ Also, you can just take top used 'reverse translit' passwords and use it at a cu
     git clone https://github.com/lctrcl/crwg
     pip install -r requirements.txt
 
-Download and clean up russian dictionaries:
+Download and clean up Russian dictionaries:
 
     python crwg.py --downloaddictionaries ruscorpora --autoclean
 
@@ -72,7 +72,7 @@ Generate statistics:
                             Generate dictionary from file
       --downloaddictionaries {ruscorpora,opencorpora}
                             Download ruscorpora or opencorpora
-      --autoclean           Autoclean downloaded dictionaries (english characters,
+      --autoclean           Autoclean downloaded dictionaries (English characters,
                             numbers, etc)
       --source SOURCE, -s SOURCE
                             Source file
@@ -93,7 +93,7 @@ For analysis I took mail.ru, yandex.ru, gmail and sprashivai dumps.
 Overall it was 26212007 passwords in these dump.
 There was 337767 passwords based on 'reverse translit' principle so it was ~1,28% of all the passwords combined.
 
-Top-20 passwords are (count - password - russian word - english word translated):
+Top-20 passwords are (count - password - Russian word - English word translated):
 
     5421    gfhjkm         пароль       (password)
     4674    ghbdtn         привет       (hello)
@@ -120,9 +120,9 @@ As you see, nothing surprising - 'password' is the top one.
 A lot of users use their first names as the password. Password 'k.,jdm' can be interpreted as a word 'love' or female name 'Lyubov'.
 
 The password 'спрашивай' is the name of service (sprashivai.ru) was the most popular of all services - 1634. For example, password 'zyltrc' (yandex) was used 80 times, 'zyltrche' (yandex.ru) - 3, 'vtqkhe' (mail.ru) - 4
-Suprisingly, password 'drjynfrnt' (vkontakte), popular russian social service, was used 766 times.
+Surprisingly, password 'drjynfrnt' (vkontakte), popular Russian social service, was used 766 times.
 
-Let's take russian names dictionary and look at top-20 names:
+Let's take Russian names dictionary and look at top-20 names:
 
     2409    fyfcnfcbz   анастасия       (Anastasiya)
     2168    rhbcnbyf    кристина        (Kristina)
@@ -170,8 +170,8 @@ Top-20 locations (cities,countries):
 
 Surprisingly, Madagascar is Top-3 password (I have no explanation to this).
 Password 'vfhctkm' (Marseille) can also be a male name.
-Password 'fynfyfyfhbde' (Antananarivu) is suprising, but it's more not due popularity of place itself, but due to song "Antananarivu" by russian pop-star Zemfira.
-Passwords of 'manchester' and 'barcelona' are also traditionally considered football-related due to overall popularity of MU and Barcelon FC.
+Password 'fynfyfyfhbde' (Antananarivu) is surprising, but it's more not because of popularity of place itself, but due to song "Antananarivu" by Russian pop-star Zemfira.
+Passwords of 'manchester' and 'barcelona' are also traditionally considered football-related due to overall popularity of MU and Barcelona FC.
 
 # misc
 
