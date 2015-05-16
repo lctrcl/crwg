@@ -1,7 +1,3 @@
----
-layout: post
-title: Custom Russian WordList Generator
----
 
 **TL;DR**
 This is a generator of custom russian dictionaries, based on reverse translit, and basic password analyzer.
