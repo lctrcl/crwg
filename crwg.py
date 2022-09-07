@@ -8,7 +8,7 @@ import re
 import urllib.request, urllib.parse, urllib.error
 import zipfile
 import bz2
-from progressbar import ProgressBar, Bar, ETA, Percentage
+from tqdm import tqdm
 import codecs
 
 from transliterate.base import TranslitLanguagePack, registry
@@ -33,10 +33,6 @@ class MyParser(argparse.ArgumentParser):
         sys.stderr.write('error: %s\n' % message)
         self.print_help()
         sys.exit(2)
-
-
-widgets = [Percentage(), Bar('>'), ' ', ETA(), ' ']
-pbar = ProgressBar(widgets=widgets, maxval=10000000)
 
 
 autodiscover()
@@ -146,13 +142,13 @@ def generatedictionary(source, destination,  gendic):
         return
     if gendic == 'translit':
         with codecs.open(destination, 'a+', 'utf-8') as myfile:
-            for line in pbar(lines):
+            for line in tqdm(lines):
                 myfile.write(
                     translit(str(line), 'ru', reversed=True) + '\n')
 
     if gendic == 'ru_inv_en':
         with codecs.open(destination, 'a+', 'utf-8') as myfile:
-            for line in pbar(lines):
+            for line in tqdm(lines):
                 myfile.write(translit(str(line), gendic) + '\n')
 
     myfile.close()
@@ -170,7 +166,7 @@ def compare_two_password_bases(source, destination, dictionary):
         translit_dictionary = content_file.read().splitlines()
     print("- [*] Generating statistics: ")
     s = set(translit_dictionary)
-    b3 = [val for val in pbar(leaked_passwords) if val in s]
+    b3 = [val for val in tqdm(leaked_passwords) if val in s]
 
     count = Counter(b3)
 
