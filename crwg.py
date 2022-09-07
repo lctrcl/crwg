@@ -83,7 +83,7 @@ def downloaddictionaries(dictionary_strings):
             if not os.path.isdir(destdir):
                 os.makedirs(destdir)
             data = z.read(n)
-            f = open(dest, 'w')
+            f = open(dest, 'wb')
             f.write(data)
             f.close()
         z.close()
@@ -92,7 +92,7 @@ def downloaddictionaries(dictionary_strings):
         print(f'[*] Extracting {dictionary_strings} dictionary')
         uncompresseddata = bz2.BZ2File(os.path.basename(url)).read()
         zname = os.path.splitext(os.path.basename(url))[0]
-        f = open(zname, 'w')
+        f = open(zname, 'wb')
         f.write(uncompresseddata)
         f.close()
     return
