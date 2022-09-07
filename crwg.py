@@ -23,7 +23,7 @@ __version__ = "0.3"
 __banner__ = """Custom Russian Wordlists Generator """ + \
     __version__ +  """         """
 
-dictionary_urls = {'ruscorpora': 'http://www.ruscorpora.ru/ngrams/1grams-3.zip',
+dictionary_urls = {'ruscorpora': 'https://ruscorpora.ru/new/ngrams/1grams-3.zip',
                    'opencorpora': 'http://opencorpora.org/files/export/ngrams/unigrams.cyr.lc.bz2'}
 
 
