@@ -30,7 +30,7 @@ dictionary_urls = {'ruscorpora': 'http://www.ruscorpora.ru/ngrams/1grams-3.zip',
 class MyParser(argparse.ArgumentParser):
 
     def error(self, message):
-        sys.stderr.write('error: %s\n' % message)
+        sys.stderr.write(f'error: {message}\n')
         self.print_help()
         sys.exit(2)
 
@@ -65,18 +65,17 @@ def downloaddictionaries(dictionary_strings):
     url = dictionary_urls[dictionary_strings]
 
     try:
-        print(('\n- [*] Downloading {} dictionary\n').format(dictionary_strings))
+        print(f'\n- [*] Downloading {dictionary_strings} dictionary\n')
         name, hdrs = urllib.request.urlretrieve(url, os.path.basename(
             url), lambda nb, bs, fs, url=url: _reporthook(nb, bs, fs, url))
     except IOError as e:
-        print("Can't retrieve %r: %s" % (url, e))
+        print(f"Can't retrieve {url!r}: {e}")
     if dictionary_strings == 'ruscorpora':
         try:
-            print((
-                '\n\n- [*] Extracting {} dictionary\n').format(dictionary_strings))
+            print(f'\n\n- [*] Extracting {dictionary_strings} dictionary\n')
             z = zipfile.ZipFile(os.path.basename(url))
         except zipfile.error as e:
-            print("Bad zipfile (from %r): %s" % (url, e))
+            print(f"Bad zipfile (from {url!r}): {e}")
             return
         for n in z.namelist():
             print(n)
@@ -91,7 +90,7 @@ def downloaddictionaries(dictionary_strings):
         z.close()
         os.unlink(name)
     if dictionary_strings == 'opencorpora':
-        print(('\n- [*] Extracting {} dictionary\n').format(dictionary_strings))
+        print(f'\n- [*] Extracting {dictionary_strings} dictionary\n')
         uncompresseddata = bz2.BZ2File(os.path.basename(url)).read()
         zname = os.path.splitext(os.path.basename(url))[0]
         f = open(zname, 'w')
@@ -101,7 +100,7 @@ def downloaddictionaries(dictionary_strings):
 
 
 def autoclean(dictionary_strings):
-    print(('\n- [*] Autocleaning {} dictionary').format(dictionary_strings))
+    print(f'\n- [*] Autocleaning {dictionary_strings} dictionary')
     if dictionary_strings == 'opencorpora':
         name = os.path.splitext(
             os.path.basename(dictionary_urls[dictionary_strings]))[0]
@@ -122,10 +121,10 @@ def autoclean(dictionary_strings):
     with codecs.open(dictionary_strings + 'dict_stripped', 'w', 'utf-8') as f2:
         if dictionary_strings == 'opencorpora':
             for line in lines:
-                f2.write('%s\n' % str(line).split()[0].lower())
+                f2.write(f'{str(line).split()[0].lower()}\n')
         elif dictionary_strings == 'ruscorpora':
             for line in lines:
-                f2.write('%s\n' % str(line).split()[1].lower())
+                f2.write(f'{str(line).split()[1].lower()}\n')
 
     f1.close()
     f2.close()
@@ -135,7 +134,7 @@ def autoclean(dictionary_strings):
 def generatedictionary(source, destination,  gendic):
     with codecs.open(source, 'r', 'utf-8') as f:
         lines = f.read().splitlines()
-    print(('- [*] Making {} dictionary: ').format(gendic))
+    print(f'- [*] Making {gendic} dictionary: ')
     # TODO
     if gendic == 'tran5l1t':
         print("Not implemented yet")
