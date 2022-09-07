@@ -104,8 +104,7 @@ def autoclean(dictionary_strings):
         name = os.path.splitext(
             os.path.basename(dictionary_urls[dictionary_strings]))[0]
     elif dictionary_strings == 'ruscorpora':
-        name = os.path.splitext(
-            os.path.basename(dictionary_urls[dictionary_strings]))[0] + '.txt'
+        name = f'{os.path.splitext(os.path.basename(dictionary_urls[dictionary_strings]))[0]}.txt'
     # stripping all digits and english characters
     regex = re.compile(r'[a-zA-Z0-9_]')
     with codecs.open(name, 'r', 'utf-8') as f1:
@@ -117,7 +116,7 @@ def autoclean(dictionary_strings):
         lines = [x for x in lines if not regex.search(x.split()[1])]
         lines = [x for x in lines if len(x.split()[1]) > 3]
 
-    with codecs.open(dictionary_strings + 'dict_stripped', 'w', 'utf-8') as f2:
+    with codecs.open('{dictionary_strings}dict_stripped}', 'w', 'utf-8') as f2:
         if dictionary_strings == 'opencorpora':
             for line in lines:
                 f2.write(f'{str(line).split()[0].lower()}\n')
