@@ -80,7 +80,7 @@ def downloaddictionaries(dictionary_strings):
                 '\n\n- [*] Extracting {} dictionary\n').format(dictionary_strings))
             z = zipfile.ZipFile(os.path.basename(url))
         except zipfile.error as e:
-            print("Bad zipfile (from %r): %s" % (theurl, e))
+            print("Bad zipfile (from %r): %s" % (url, e))
             return
         for n in z.namelist():
             print(n)
