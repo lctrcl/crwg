@@ -1,2 +1,2 @@
-progressbar == 2.3
-transliterate == 1.7.3
+tqdm == 4.64.1
+transliterate == 1.10.2
