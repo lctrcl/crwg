@@ -133,7 +133,6 @@ def autoclean(dictionary_strings):
 
     f1.close()
     f2.close()
-    return
 
 
 def generatedictionary(source, destination, gendic):
@@ -181,7 +180,6 @@ def compare_two_password_bases(source, destination, dictionary):
             )
     myfile.close()
     print("Done")
-    return
 
 
 def main():
