@@ -20,7 +20,7 @@ from transliterate.discover import autodiscover
 # init
 __author__ = "Igor Ivanov, @lctrcl"
 __license__ = "GPL"
-__version__ = "0.3"
+__version__ = "0.4"
 __banner__ = f"Custom Russian Wordlists Generator {__version__}"
 
 dictionary_urls = {
