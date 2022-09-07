@@ -20,8 +20,7 @@ from collections import Counter
 __author__ = "Igor Ivanov, @lctrcl"
 __license__ = "GPL"
 __version__ = "0.3"
-__banner__ = """Custom Russian Wordlists Generator """ + \
-    __version__ +  """         """
+__banner__ = f"Custom Russian Wordlists Generator {__version__}"
 
 dictionary_urls = {'ruscorpora': 'https://ruscorpora.ru/new/ngrams/1grams-3.zip',
                    'opencorpora': 'http://opencorpora.org/files/export/ngrams/unigrams.cyr.lc.bz2'}
@@ -43,8 +42,8 @@ class ReverseInverseRussianLanguagePack(TranslitLanguagePack):
     language_name = "ru_inv_en"
     mapping = (
         "йцукенгшщзхъфывапролджэёячсмитьбю",
-        "qwertyuiop[]asdfghjkl;'\zxcvbnm,.",
-    )
+        "qwertyuiop[]asdfghjkl;'\\zxcvbnm,.",
+    )   
 
 registry.register(ReverseInverseRussianLanguagePack)
 
