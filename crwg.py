@@ -68,7 +68,7 @@ def downloaddictionaries(dictionary_strings):
 
     try:
         print(f"[*] Downloading {dictionary_strings} dictionary")
-        name, hdrs = urllib.request.urlretrieve(
+        name, _ = urllib.request.urlretrieve(
             url,
             os.path.basename(url),
             lambda nb, bs, fs, url=url: _reporthook(nb, bs, fs, url),
