@@ -5,7 +5,7 @@ import time
 import os
 import sys
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import zipfile
 import bz2
 from progressbar import ProgressBar, Bar, ETA, Percentage
@@ -46,8 +46,8 @@ class ReverseInverseRussianLanguagePack(TranslitLanguagePack):
     language_code = "ru_inv_en"
     language_name = "ru_inv_en"
     mapping = (
-        u"йцукенгшщзхъфывапролджэёячсмитьбю",
-        u"qwertyuiop[]asdfghjkl;'\zxcvbnm,.",
+        "йцукенгшщзхъфывапролджэёячсмитьбю",
+        "qwertyuiop[]asdfghjkl;'\zxcvbnm,.",
     )
 
 registry.register(ReverseInverseRussianLanguagePack)
@@ -69,18 +69,18 @@ def downloaddictionaries(dictionary_strings):
     url = dictionary_urls[dictionary_strings]
 
     try:
-        print('\n- [*] Downloading {} dictionary\n').format(dictionary_strings)
-        name, hdrs = urllib.urlretrieve(url, os.path.basename(
+        print(('\n- [*] Downloading {} dictionary\n').format(dictionary_strings))
+        name, hdrs = urllib.request.urlretrieve(url, os.path.basename(
             url), lambda nb, bs, fs, url=url: _reporthook(nb, bs, fs, url))
-    except IOError, e:
-        print "Can't retrieve %r: %s" % (url, e)
+    except IOError as e:
+        print("Can't retrieve %r: %s" % (url, e))
     if dictionary_strings == 'ruscorpora':
         try:
-            print(
-                '\n\n- [*] Extracting {} dictionary\n').format(dictionary_strings)
+            print((
+                '\n\n- [*] Extracting {} dictionary\n').format(dictionary_strings))
             z = zipfile.ZipFile(os.path.basename(url))
-        except zipfile.error, e:
-            print "Bad zipfile (from %r): %s" % (theurl, e)
+        except zipfile.error as e:
+            print("Bad zipfile (from %r): %s" % (theurl, e))
             return
         for n in z.namelist():
             print(n)
@@ -95,7 +95,7 @@ def downloaddictionaries(dictionary_strings):
         z.close()
         os.unlink(name)
     if dictionary_strings == 'opencorpora':
-        print('\n- [*] Extracting {} dictionary\n').format(dictionary_strings)
+        print(('\n- [*] Extracting {} dictionary\n').format(dictionary_strings))
         uncompresseddata = bz2.BZ2File(os.path.basename(url)).read()
         zname = os.path.splitext(os.path.basename(url))[0]
         f = open(zname, 'w')
@@ -105,7 +105,7 @@ def downloaddictionaries(dictionary_strings):
 
 
 def autoclean(dictionary_strings):
-    print('\n- [*] Autocleaning {} dictionary').format(dictionary_strings)
+    print(('\n- [*] Autocleaning {} dictionary').format(dictionary_strings))
     if dictionary_strings == 'opencorpora':
         name = os.path.splitext(
             os.path.basename(dictionary_urls[dictionary_strings]))[0]
@@ -117,19 +117,19 @@ def autoclean(dictionary_strings):
     with codecs.open(name, 'r', 'utf-8') as f1:
         lines = f1.read().splitlines()
     if dictionary_strings == 'opencorpora':
-        lines = filter(lambda x: not regex.search(x.split()[0]), lines)
-        lines = filter(lambda x: len(x.split()[0]) > 3, lines)
+        lines = [x for x in lines if not regex.search(x.split()[0])]
+        lines = [x for x in lines if len(x.split()[0]) > 3]
     elif dictionary_strings == 'ruscorpora':
-        lines = filter(lambda x: not regex.search(x.split()[1]), lines)
-        lines = filter(lambda x: len(x.split()[1]) > 3, lines)
+        lines = [x for x in lines if not regex.search(x.split()[1])]
+        lines = [x for x in lines if len(x.split()[1]) > 3]
 
     with codecs.open(dictionary_strings + 'dict_stripped', 'w', 'utf-8') as f2:
         if dictionary_strings == 'opencorpora':
             for line in lines:
-                f2.write('%s\n' % unicode(line).split()[0].lower())
+                f2.write('%s\n' % str(line).split()[0].lower())
         elif dictionary_strings == 'ruscorpora':
             for line in lines:
-                f2.write('%s\n' % unicode(line).split()[1].lower())
+                f2.write('%s\n' % str(line).split()[1].lower())
 
     f1.close()
     f2.close()
@@ -139,21 +139,21 @@ def autoclean(dictionary_strings):
 def generatedictionary(source, destination,  gendic):
     with codecs.open(source, 'r', 'utf-8') as f:
         lines = f.read().splitlines()
-    print('- [*] Making {} dictionary: ').format(gendic)
+    print(('- [*] Making {} dictionary: ').format(gendic))
     # TODO
     if gendic == 'tran5l1t':
-        print "Not implemented yet"
+        print("Not implemented yet")
         return
     if gendic == 'translit':
         with codecs.open(destination, 'a+', 'utf-8') as myfile:
             for line in pbar(lines):
                 myfile.write(
-                    translit(unicode(line), 'ru', reversed=True) + '\n')
+                    translit(str(line), 'ru', reversed=True) + '\n')
 
     if gendic == 'ru_inv_en':
         with codecs.open(destination, 'a+', 'utf-8') as myfile:
             for line in pbar(lines):
-                myfile.write(translit(unicode(line), gendic) + '\n')
+                myfile.write(translit(str(line), gendic) + '\n')
 
     myfile.close()
     f.close()
@@ -168,19 +168,19 @@ def compare_two_password_bases(source, destination, dictionary):
         leaked_passwords = f.read().splitlines()
     with codecs.open(translit_dictionary_name, 'r', 'utf-8') as content_file:
         translit_dictionary = content_file.read().splitlines()
-    print "- [*] Generating statistics: "
+    print("- [*] Generating statistics: ")
     s = set(translit_dictionary)
     b3 = [val for val in pbar(leaked_passwords) if val in s]
 
     count = Counter(b3)
 
-    print "- [*] Writing to file: "
+    print("- [*] Writing to file: ")
     with codecs.open(result_statistics_name, 'w+', 'utf-8') as myfile:
         for k, v in count.most_common():
             myfile.write(
                 '%d ' % v + k + ' ' + translit(k, 'ru_inv_en', reversed=True) + '\n')
     myfile.close()
-    print "Done"
+    print("Done")
     return
 
 
@@ -204,7 +204,7 @@ def main():
         parser.print_help()
         sys.exit(1)
     args = parser.parse_args()
-    print __banner__
+    print(__banner__)
     if args.downloaddictionaries:
         downloaddictionaries(args.downloaddictionaries)
 
