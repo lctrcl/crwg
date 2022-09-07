@@ -174,9 +174,7 @@ def compare_two_password_bases(source, destination, dictionary):
     print("[*] Writing to file: ")
     with codecs.open(result_statistics_name, "w+", "utf-8") as myfile:
         for k, v in count.most_common():
-            myfile.write(
-                "%d " % v + k + " " + translit(k, "ru_inv_en", reversed=True) + "\n"
-            )
+            myfile.write(f"{v}{k} {translit(k, 'ru_inv_en', reversed=True)}\n")
     myfile.close()
     print("Done")
 
