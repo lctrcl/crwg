@@ -1,23 +1,22 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import argparse
-import time
-import os
-import sys
-import re
-import urllib.request
-import urllib.parse
-import urllib.error
-import zipfile
 import bz2
-from tqdm import tqdm
 import codecs
-
-from transliterate.base import TranslitLanguagePack, registry
-from transliterate import translit, get_available_language_codes
-from transliterate.discover import autodiscover
-
+import os
+import re
+import sys
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+import zipfile
 from collections import Counter
+
+from tqdm import tqdm
+from transliterate import get_available_language_codes, translit
+from transliterate.base import TranslitLanguagePack, registry
+from transliterate.discover import autodiscover
 
 # init
 __author__ = "Igor Ivanov, @lctrcl"
