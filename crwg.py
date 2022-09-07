@@ -20,7 +20,7 @@ from transliterate.discover import autodiscover
 # init
 __author__ = "Igor Ivanov, @lctrcl"
 __license__ = "GPL"
-__version__ = "0.3"
+__version__ = "0.4"
 __banner__ = f"Custom Russian Wordlists Generator {__version__}"
 
 dictionary_urls = {
@@ -88,18 +88,16 @@ def downloaddictionaries(dictionary_strings):
             if not os.path.isdir(destdir):
                 os.makedirs(destdir)
             data = z.read(n)
-            f = open(dest, "wb")
-            f.write(data)
-            f.close()
+            with open(dest, "wb") as f:
+                f.write(data)
         z.close()
         os.unlink(name)
     if dictionary_strings == "opencorpora":
         print(f"[*] Extracting {dictionary_strings} dictionary")
         uncompresseddata = bz2.BZ2File(os.path.basename(url)).read()
         zname = os.path.splitext(os.path.basename(url))[0]
-        f = open(zname, "wb")
-        f.write(uncompresseddata)
-        f.close()
+        with open(zname, "wb") as f:
+            f.write(uncompresseddata)
     return
 
 
