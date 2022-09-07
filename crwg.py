@@ -65,14 +65,14 @@ def downloaddictionaries(dictionary_strings):
     url = dictionary_urls[dictionary_strings]
 
     try:
-        print(f'\n- [*] Downloading {dictionary_strings} dictionary\n')
+        print(f'[*] Downloading {dictionary_strings} dictionary')
         name, hdrs = urllib.request.urlretrieve(url, os.path.basename(
             url), lambda nb, bs, fs, url=url: _reporthook(nb, bs, fs, url))
     except IOError as e:
         print(f"Can't retrieve {url!r}: {e}")
     if dictionary_strings == 'ruscorpora':
         try:
-            print(f'\n\n- [*] Extracting {dictionary_strings} dictionary\n')
+            print(f'[*] Extracting {dictionary_strings} dictionary')
             z = zipfile.ZipFile(os.path.basename(url))
         except zipfile.error as e:
             print(f"Bad zipfile (from {url!r}): {e}")
@@ -90,7 +90,7 @@ def downloaddictionaries(dictionary_strings):
         z.close()
         os.unlink(name)
     if dictionary_strings == 'opencorpora':
-        print(f'\n- [*] Extracting {dictionary_strings} dictionary\n')
+        print(f'[*] Extracting {dictionary_strings} dictionary')
         uncompresseddata = bz2.BZ2File(os.path.basename(url)).read()
         zname = os.path.splitext(os.path.basename(url))[0]
         f = open(zname, 'w')
@@ -100,7 +100,7 @@ def downloaddictionaries(dictionary_strings):
 
 
 def autoclean(dictionary_strings):
-    print(f'\n- [*] Autocleaning {dictionary_strings} dictionary')
+    print(f'[*] Autocleaning {dictionary_strings} dictionary')
     if dictionary_strings == 'opencorpora':
         name = os.path.splitext(
             os.path.basename(dictionary_urls[dictionary_strings]))[0]
@@ -134,7 +134,7 @@ def autoclean(dictionary_strings):
 def generatedictionary(source, destination,  gendic):
     with codecs.open(source, 'r', 'utf-8') as f:
         lines = f.read().splitlines()
-    print(f'- [*] Making {gendic} dictionary: ')
+    print(f'[*] Making {gendic} dictionary: ')
     # TODO
     if gendic == 'tran5l1t':
         print("Not implemented yet")
@@ -142,13 +142,12 @@ def generatedictionary(source, destination,  gendic):
     if gendic == 'translit':
         with codecs.open(destination, 'a+', 'utf-8') as myfile:
             for line in tqdm(lines):
-                myfile.write(
-                    translit(str(line), 'ru', reversed=True) + '\n')
+                myfile.write(f"{translit(str(line), 'ru', reversed=True)}\n")
 
     if gendic == 'ru_inv_en':
         with codecs.open(destination, 'a+', 'utf-8') as myfile:
             for line in tqdm(lines):
-                myfile.write(translit(str(line), gendic) + '\n')
+                myfile.write(f"{translit(str(line), gendic)}\n")
 
     myfile.close()
     f.close()
@@ -163,13 +162,13 @@ def compare_two_password_bases(source, destination, dictionary):
         leaked_passwords = f.read().splitlines()
     with codecs.open(translit_dictionary_name, 'r', 'utf-8') as content_file:
         translit_dictionary = content_file.read().splitlines()
-    print("- [*] Generating statistics: ")
+    print("[*] Generating statistics: ")
     s = set(translit_dictionary)
     b3 = [val for val in tqdm(leaked_passwords) if val in s]
 
     count = Counter(b3)
 
-    print("- [*] Writing to file: ")
+    print("[*] Writing to file: ")
     with codecs.open(result_statistics_name, 'w+', 'utf-8') as myfile:
         for k, v in count.most_common():
             myfile.write(
