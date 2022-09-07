@@ -6,7 +6,6 @@ import codecs
 import os
 import re
 import sys
-import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -14,7 +13,7 @@ import zipfile
 from collections import Counter
 
 from tqdm import tqdm
-from transliterate import get_available_language_codes, translit
+from transliterate import translit
 from transliterate.base import TranslitLanguagePack, registry
 from transliterate.discover import autodiscover
 
