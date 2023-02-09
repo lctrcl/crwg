@@ -43,7 +43,7 @@ class ReverseInverseRussianLanguagePack(TranslitLanguagePack):
     language_code = "ru_inv_en"
     language_name = "ru_inv_en"
     mapping = (
-        "йцукенгшщзхъфывапролджэёячсмитьбюйЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЁЯЧСМИТЬБЮ",
+        "йцукенгшщзхъфывапролджэёячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЁЯЧСМИТЬБЮ",
         "qwertyuiop[]asdfghjkl;'`zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:\"~ZXCVBNM<>?",
     )
 
