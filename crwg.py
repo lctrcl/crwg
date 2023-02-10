@@ -43,8 +43,8 @@ class ReverseInverseRussianLanguagePack(TranslitLanguagePack):
     language_code = "ru_inv_en"
     language_name = "ru_inv_en"
     mapping = (
-        "йцукенгшщзхъфывапролджэёячсмитьбю",
-        "qwertyuiop[]asdfghjkl;'\\zxcvbnm,.",
+        "йцукенгшщзхъфывапролджэёячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЁЯЧСМИТЬБЮ",
+        "qwertyuiop[]asdfghjkl;'`zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:\"~ZXCVBNM<>?",
     )
 
 
@@ -52,8 +52,8 @@ class ReverseInverseEnglishLanguagePack(TranslitLanguagePack):
     language_code = "en_inv_ru"
     language_name = "en_inv_ru"
     mapping = (
-        "qwertyuiop[]asdfghjkl;'\\zxcvbnm,.",
-        "йцукенгшщзхъфывапролджэёячсмитьбю",
+        "qwertyuiop[]asdfghjkl;'`zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:\"~ZXCVBNM<>?",
+        "йцукенгшщзхъфывапролджэёячсмитьбюйЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЁЯЧСМИТЬБЮ",
     )
 
 
