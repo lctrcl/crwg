@@ -43,12 +43,22 @@ class ReverseInverseRussianLanguagePack(TranslitLanguagePack):
     language_code = "ru_inv_en"
     language_name = "ru_inv_en"
     mapping = (
-        "йцукенгшщзхъфывапролджэёячсмитьбю",
-        "qwertyuiop[]asdfghjkl;'\\zxcvbnm,.",
+        '''"№;%:?йцукенгшщзхъфывапролджэёячсмитьбюйЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЁЯЧСМИТЬБЮ''',
+        '''@#$%^&qwertyuiop[]asdfghjkl;'`zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:"~ZXCVBNM<>?''',
+    )
+
+
+class ReverseInverseEnglishLanguagePack(TranslitLanguagePack):
+    language_code = "en_inv_ru"
+    language_name = "en_inv_ru"
+    mapping = (
+        '''@#$%^&qwertyuiop[]asdfghjkl;'`zxcvbnm,.QWERTYUIOP{}ASDFGHJKL:"~ZXCVBNM<>?''',
+        '''"№;%:?йцукенгшщзхъфывапролджэёячсмитьбюйЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЁЯЧСМИТЬБЮ''',
     )
 
 
 registry.register(ReverseInverseRussianLanguagePack)
+registry.register(ReverseInverseEnglishLanguagePack)
 
 
 def _reporthook(numblocks, blocksize, filesize, url=None):
@@ -150,6 +160,11 @@ def generatedictionary(source, destination, gendic):
             for line in tqdm(lines):
                 myfile.write(f"{translit(str(line), gendic)}\n")
 
+    if gendic == "en_inv_ru":
+        with codecs.open(destination, "a+", "utf-8") as myfile:
+            for line in tqdm(lines):
+                myfile.write(f"{translit(str(line), gendic)}\n")
+
     myfile.close()
     f.close()
     return
@@ -186,7 +201,7 @@ def main():
     parser.add_argument(
         "--gendic",
         "-g",
-        choices=["ru_inv_en", "translit", "tran5l1t"],
+        choices=["ru_inv_en", "en_inv_ru","translit", "tran5l1t"],
         help="Generate dictionary from file ",
     )
     parser.add_argument(
